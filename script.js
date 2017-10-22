@@ -20,22 +20,32 @@ function enterPhobiaInput() {
     // Set up shortcuts for getting elements of web page
     var $$$ = function(id) { return document.getElementById(id); };
     var $$ = function(id) { return document.getElementsByClassName(id); };
-    var currentJSON = "";
 
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
         var phobia = ["spiders", "clowns", "snails"];
-        var image = "https://static.pexels.com/photos/126407/pexels-photo-126407.jpeg";
+        var image = "https://img00.deviantart.net/8ad8/i/2013/186/9/a/realistic_spider_by_natihassansin-d6c3rj2.jpg";
         document.querySelector("#sourceImage").src = image;
-        processImage(image, $("#sourceImage"));
+        
+        hideAllImages();
+        $("img").each(function(){
+            processImage(this);
+        });
+
         
     };
+
+    function hideAllImages() {
+        $("img").each(function() {
+            this.style = "opacity:0";
+        })
+    }
 
     function enterPhobiaInput(){
         var phobia = document.getElementById('phobia').value;
     }
 
-    function processImage(sourceImageURL, tagOfImage) {
+    function processImage(tagOfImage) {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -61,8 +71,8 @@ function enterPhobiaInput() {
         };
 
         // Display the image.
-        var sourceImageUrl = sourceImageURL;
-        var returnTrueOrFalse = false;
+        var sourceImageUrl = tagOfImage.src;
+
         // Perform the REST API call.
         $.ajax({
             url: uriBase + "?" + $.param(params),
@@ -81,14 +91,16 @@ function enterPhobiaInput() {
 
         
         .done(function(data) {
-            if(data.categories[0].name = "animal_cat") {
-                var width = $("#sourceImage").width();
-                var height = $("#sourceImage").height();
+            //console.log(JSON.stringify(data));
+
+            if(matchesFilter(data.description.tags, phobiaList)) {
+                var width = tagOfImage.width;
+                var height = tagOfImage.height;
                 
-                $("#sourceImage").attr({
-                    "src":"imageblock.jpg",
-                    "style":"width: "+width+"px; height: "+height+"px"
-                });
+                tagOfImage.src = "imageblock.jpg";
+                tagOfImage.style = "opacity: 1; width: "+width+"px; height: "+height+"px";
+            } else {
+                tagOfImage.style = "opacity: 1";
             }
             
         })
@@ -100,6 +112,10 @@ function enterPhobiaInput() {
             alert(errorString);
         });
 
+    }
+
+    function matchesFilter(tags, phobiaList) {
+        return false;
     }
 
 
