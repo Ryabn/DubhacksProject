@@ -24,9 +24,9 @@ function enterPhobiaInput() {
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
         var phobia = ["spiders", "clowns", "snails"];
-        var image = "https://img00.deviantart.net/8ad8/i/2013/186/9/a/realistic_spider_by_natihassansin-d6c3rj2.jpg";
+        var image = "https://www.healthline.com/hlcmsresource/images/Image-Galleries/Trypophobia/1113-Trypophobia-Understanding_Fear_of_Holes-642x361-slide1.jpg";
         document.querySelector("#sourceImage").src = image;
-        
+
         hideAllImages();
         $("img").each(function(){
             processImage(this);
@@ -102,7 +102,8 @@ function enterPhobiaInput() {
             } else {
                 tagOfImage.style = "opacity: 1";
             }
-            
+
+            tagOfImage.classList.add("phobiaBlockerScanned");
         })
 
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -116,6 +117,7 @@ function enterPhobiaInput() {
 
     function matchesFilter(tags, phobiaList) {
         return false;
+        // INSERT JEFF'S CODE HERE
     }
 
 
