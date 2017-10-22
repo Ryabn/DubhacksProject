@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<!-- Dubhacks 2017 Project
-    -Ryan Yang
-    -Jeff Jing
-    -Nathaniel Wichman
-    -William Kwok
--->
-
-<html lang="en-US">
-    <head>
-        <title>
-            Phobia Sensor
-        </title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="default.css">
-    </head>
-    
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="topSection">
-                        <p>What are your phobias?</p>
-                        <input type="text" id="userPhobia"/>
-                        <button class="enterPhobiaButton" onclick="enterPhobiaInput()">Add Phobia</button>
-                    </div>
-                </div>
-            </div>
-           <div class="row">
-               <div class="col-12">
-                   <ol id="userPhobiaList">
-                   </ol>
-                </div>
-            </div>
-        </div>
-        
-    </body>
-    
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+      <span>Choose a color</span>
+      <select id="dropdown">
+        <option selected disabled hidden value=''></option>
+        <option value="white">White</option>
+        <option value="pink">Pink</option>
+        <option value="green">Green</option>
+        <option value="yellow">Yellow</option>
+      </select>
+  </body>
 </html>
+
