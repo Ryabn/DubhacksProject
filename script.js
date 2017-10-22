@@ -24,23 +24,20 @@ function enterPhobiaInput() {
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
         var phobia = ["spiders", "clowns", "snails"];
-        var image = "https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg";
+        var image = "https://img00.deviantart.net/8ad8/i/2013/186/9/a/realistic_spider_by_natihassansin-d6c3rj2.jpg";
         document.querySelector("#sourceImage").src = image;
-        processImage(image, $("#sourceImage"));
-
+        
         hideAllImages();
         $("img").each(function(){
             processImage(this);
-            });
+        });
 
         
     };
 
     function hideAllImages() {
         $("img").each(function() {
-            this.attr({
-                "style":"opacity:0"
-            });
+            this.style = "opacity:0";
         })
     }
 
@@ -94,20 +91,16 @@ function enterPhobiaInput() {
 
         
         .done(function(data) {
-            // if data.description.tags[0] == "____"
+            //console.log(JSON.stringify(data));
 
             if(matchesFilter(data.description.tags, phobiaList)) {
-                var width = tagOfImage.width();
-                var height = tagOfImage.height();
+                var width = tagOfImage.width;
+                var height = tagOfImage.height;
                 
-                tagOfImage.attr({
-                    "src":"imageblock.jpg",
-                    "style":"opacity: 1; width: "+width+"px; height: "+height+"px"
-                });
+                tagOfImage.src = "imageblock.jpg";
+                tagOfImage.style = "opacity: 1; width: "+width+"px; height: "+height+"px";
             } else {
-                tagOfImage.attr({
-                    "style":"opacity: 1"
-                })
+                tagOfImage.style = "opacity: 1";
             }
             
         })
@@ -119,6 +112,10 @@ function enterPhobiaInput() {
             alert(errorString);
         });
 
+    }
+
+    function matchesFilter(tags, phobiaList) {
+        return false;
     }
 
 
