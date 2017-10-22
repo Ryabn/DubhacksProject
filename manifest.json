@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Phobia Blocker",
+  "description": "This extension blocks out all images that may contain contents that a user is afraid of seeing (phobias).",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html",
+    "default_title": "Block Phobias!"
+  },
+  "permissions": [
+    "cookies",
+    "activeTab",
+    "storage"
+  ]
+}
