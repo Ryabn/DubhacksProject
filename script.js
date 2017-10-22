@@ -13,7 +13,7 @@
         var phobia = ["spiders", "clowns", "snails"];
         var image = "https://static.pexels.com/photos/126407/pexels-photo-126407.jpeg";
         document.querySelector("#sourceImage").src = image;
-        var a = processImage(image, $("#sourceImage"));
+        processImage(image, $("#sourceImage"));
         
     };
 
@@ -68,7 +68,7 @@
         
         .done(function(data) {
             if(data.categories[0].name = "animal_cat") {
-                $("#sourceImage").attr({"src":""});
+                $("#sourceImage").attr({"style":"opacity: 0"});
             }
             
         })
