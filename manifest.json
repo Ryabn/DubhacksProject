@@ -4,6 +4,10 @@
   "name": "Phobia Blocker",
   "description": "This extension blocks out all images that may contain contents that a user is afraid of seeing (phobias).",
   "version": "1.0",
+  "options_ui": {
+    "page": "index.html",
+    "chrome_style": true,
+  },
 
   "browser_action": {
     "default_icon": "icon.png",
