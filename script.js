@@ -1,8 +1,24 @@
-function enterPhobiaInput(){
-    var phobia=document.getElementById('phobia').value;
-}
+// Function wrapper
+(function() {
+    // Use strict style (doesn't affect functionality)
+    'use strict';
 
-function processImage() {
+    // Set up shortcuts for getting elements of web page
+    var $$$ = function(id) { return document.getElementById(id); };
+    var $$ = function(id) { return document.getElementsByClassName(id); };
+
+
+    // Window onload function. This code is executed when the HTML page first loads
+    window.onload = function() {
+        
+        
+    };
+
+    function enterPhobiaInput(){
+        var phobia = document.getElementById('phobia').value;
+    }
+
+    function processImage() {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -58,4 +74,7 @@ function processImage() {
             errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
             alert(errorString);
         });
-    };
+    }
+
+})();
+
