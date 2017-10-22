@@ -1,3 +1,17 @@
+var phobiaList = [];
+
+function enterPhobiaInput() {
+    "use strict";
+    var list = document.getElementById("userPhobiaList");
+    var tempUserPhobia = document.getElementById('userPhobia').value;
+    phobiaList.push(tempUserPhobia);
+    
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(tempUserPhobia));
+    list.appendChild(entry);
+    document.getElementById("userPhobia").value = "";
+}
+
 // Function wrapper
 (function() {
     // Use strict style (doesn't affect functionality)
