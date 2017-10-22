@@ -6,19 +6,22 @@
     // Set up shortcuts for getting elements of web page
     var $$$ = function(id) { return document.getElementById(id); };
     var $$ = function(id) { return document.getElementsByClassName(id); };
-
+    var currentJSON = "";
 
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
+        var phobia = ["spiders", "clowns", "snails"];
+        var image = "https://static.pexels.com/photos/126407/pexels-photo-126407.jpeg";
+        document.querySelector("#sourceImage").src = image;
+        var a = processImage(image, $("#sourceImage"));
         
-
     };
 
     function enterPhobiaInput(){
         var phobia = document.getElementById('phobia').value;
     }
 
-    function processImage() {
+    function processImage(sourceImageURL, tagOfImage) {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -44,9 +47,8 @@
         };
 
         // Display the image.
-        var sourceImageUrl = document.getElementById("inputImage").value;
-        document.querySelector("#sourceImage").src = sourceImageUrl;
-
+        var sourceImageUrl = sourceImageURL;
+        var returnTrueOrFalse = false;
         // Perform the REST API call.
         $.ajax({
             url: uriBase + "?" + $.param(params),
@@ -63,9 +65,12 @@
             data: '{"url": ' + '"' + sourceImageUrl + '"}',
         })
 
+        
         .done(function(data) {
-            // Show formatted JSON on webpage.
-            $("#responseTextArea").val(JSON.stringify(data, null, 2));
+            if(data.categories[0].name = "animal_cat") {
+                $("#sourceImage").attr({"src":""});
+            }
+            
         })
 
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -74,6 +79,7 @@
             errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
             alert(errorString);
         });
+
     }
 
 
