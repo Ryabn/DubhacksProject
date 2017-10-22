@@ -23,8 +23,7 @@ function enterPhobiaInput() {
 
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
-        var phobia = ["spiders", "clowns", "snails"];
-        var image = "https://www.healthline.com/hlcmsresource/images/Image-Galleries/Trypophobia/1113-Trypophobia-Understanding_Fear_of_Holes-642x361-slide1.jpg";
+        var image = "https://static.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg";
         document.querySelector("#sourceImage").src = image;
 
         loadHiddenBlockImage();
