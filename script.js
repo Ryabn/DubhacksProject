@@ -20,22 +20,35 @@ function enterPhobiaInput() {
     // Set up shortcuts for getting elements of web page
     var $$$ = function(id) { return document.getElementById(id); };
     var $$ = function(id) { return document.getElementsByClassName(id); };
-    var currentJSON = "";
 
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
         var phobia = ["spiders", "clowns", "snails"];
-        var image = "https://static.pexels.com/photos/126407/pexels-photo-126407.jpeg";
+        var image = "https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg";
         document.querySelector("#sourceImage").src = image;
         processImage(image, $("#sourceImage"));
+
+        hideAllImages();
+        $("img").each(function(){
+            processImage(this);
+            });
+
         
     };
+
+    function hideAllImages() {
+        $("img").each(function() {
+            this.attr({
+                "style":"opacity:0"
+            });
+        })
+    }
 
     function enterPhobiaInput(){
         var phobia = document.getElementById('phobia').value;
     }
 
-    function processImage(sourceImageURL, tagOfImage) {
+    function processImage(tagOfImage) {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -61,8 +74,8 @@ function enterPhobiaInput() {
         };
 
         // Display the image.
-        var sourceImageUrl = sourceImageURL;
-        var returnTrueOrFalse = false;
+        var sourceImageUrl = tagOfImage.src;
+
         // Perform the REST API call.
         $.ajax({
             url: uriBase + "?" + $.param(params),
@@ -81,14 +94,20 @@ function enterPhobiaInput() {
 
         
         .done(function(data) {
-            if(data.categories[0].name = "animal_cat") {
-                var width = $("#sourceImage").width();
-                var height = $("#sourceImage").height();
+            // if data.description.tags[0] == "____"
+
+            if(matchesFilter(data.description.tags, phobiaList)) {
+                var width = tagOfImage.width();
+                var height = tagOfImage.height();
                 
-                $("#sourceImage").attr({
+                tagOfImage.attr({
                     "src":"imageblock.jpg",
-                    "style":"width: "+width+"px; height: "+height+"px"
+                    "style":"opacity: 1; width: "+width+"px; height: "+height+"px"
                 });
+            } else {
+                tagOfImage.attr({
+                    "style":"opacity: 1"
+                })
             }
             
         })
