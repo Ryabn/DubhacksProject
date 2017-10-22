@@ -1,17 +1,16 @@
-function hideAllImages() {
-    $("img").each(function() {
-        this.style = "opacity:0";
-    })
-}
-
-    hideAllImages();
-
+var phobiaList = ["table"];
+hideAllImages();
 
 var images = document.getElementsByTagName('img');
 for (var i = 0; i < images.length; i++) {
 	processImage(images[i]);
 }
 
+function hideAllImages() {
+    $("img").each(function() {
+        this.style = "opacity:0";
+    })
+}
 
 function processImage(tagOfImage) {
    
@@ -60,19 +59,17 @@ function processImage(tagOfImage) {
 
     
     .done(function(data) {
-    	console.log(JSON.stringify(data));
-
-            if(data.description.tags.includes("table")) {
-                var width = tagOfImage.width;
-                var height = tagOfImage.height;
-                
-                tagOfImage.src = "imageblock.jpg";
-                tagOfImage.style = "opacity: 1; width: "+width+"px; height: "+height+"px";
-            } else {
-                tagOfImage.style = "opacity: 1";
-            }
-
-
+    	//console.log(JSON.stringify(data));
+        if(matchesFilter(data.description.tags, phobiaList)) {
+            var width = tagOfImage.width;
+            var height = tagOfImage.height;
+            
+            tagOfImage.src = "imageblock.jpg";
+            tagOfImage.style = "opacity: 1; width: "+width+"px; height: "+height+"px";
+        } else {
+            tagOfImage.style = "opacity: 1";
+        }
+        tagOfImage.classList.add("phobiaBlockerScanned");
     })
 
     .fail(function(jqXHR, textStatus, errorThrown) {
@@ -80,4 +77,21 @@ function processImage(tagOfImage) {
     });
 
 }
+
+function matchesFilter(tags, phobiaList) {
+    var map = new Map();
+    for(var i = 0; i < phobiaList.length; i++) {
+        map.set(phobiaList[i], false);
+    }
+    for(var i = 0; i < tags.length; i++) {
+        var word = tags[i];
+        if(!map.has(word)) {
+            map.set(word, false);
+        } else {
+            return true;
+        }
+    }
+    return false;
+}
+
 
