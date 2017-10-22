@@ -1,4 +1,4 @@
-var phobiaList = ["table"];
+var phobiaList = ["person", "lobster", "pair"];
 hideAllImages();
 
 var images = document.getElementsByTagName('img');
@@ -60,15 +60,45 @@ function processImage(tagOfImage) {
     
     .done(function(data) {
     	//console.log(JSON.stringify(data));
-        if(matchesFilter(data.description.tags, phobiaList)) {
+        var fear = matchesFilter(data.description.tags, phobiaList);
+        if (fear != null) {
             var width = tagOfImage.width;
             var height = tagOfImage.height;
+            var covered = document.createElement('div');
+            covered.style.width = width + "px";
+            covered.style.height = height + "px";
+            covered.style.background = "gray";
+            covered.style.margin = "2px";
+            covered.style.border = "10px double black";
+            var fontSize = height * width / 10000;
+            covered.style.font = "bold " + fontSize + "px Georgia, serif";
+            var textBox = document.createElement('div');
+            textBox.innerHTML = "Image hidden because it contained the following content: \n";
+            var fearText = document.createElement('p');
+            fearText.innerText = fear;
+            fearText.style.color = "red";
+            textBox.appendChild(fearText);
+            var clickBox = document.createElement('div');
+            clickBox.innerHTML = "Click here to show";
+            covered.appendChild(textBox);
+            covered.appendChild(clickBox);
+            covered.style.textAlign = "center";
+            covered.appendChild(textBox);
+            covered.style.display = "flex";
+            covered.style.flexDirection = "column-reverse";
+            covered.style.justifyContent = "space-around";
+            covered.classList.add(sourceImageUrl);
             
-            tagOfImage.src = "imageblock.jpg";
-            tagOfImage.style = "opacity: 1; width: "+width+"px; height: "+height+"px";
-        } else {
-            tagOfImage.style = "opacity: 1";
+            covered.onclick = function() {
+                this.style.backgroundImage = "url(" + this.className + ")";
+                this.style.border = "";
+                this.innerHTML = "";
+            };
+
+            tagOfImage.parentNode.insertBefore(covered, tagOfImage);
+            tagOfImage.parentNode.removeChild(tagOfImage);
         }
+        tagOfImage.style = "opacity: 1.0";    
         tagOfImage.classList.add("phobiaBlockerScanned");
     })
 
@@ -88,10 +118,10 @@ function matchesFilter(tags, phobiaList) {
         if(!map.has(word)) {
             map.set(word, false);
         } else {
-            return true;
+            return word;
         }
     }
-    return false;
+    return null;
 }
 
 
