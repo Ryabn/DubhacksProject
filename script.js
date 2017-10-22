@@ -1,4 +1,4 @@
-var phobiaList = ["table", "lobster", "pair"];
+var phobiaList = ["spider", "lobster"];
 hideAllImages();
 
 var images = document.getElementsByTagName('img');
