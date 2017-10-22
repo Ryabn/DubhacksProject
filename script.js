@@ -1,4 +1,4 @@
-var phobiaList = [];
+var phobiaList = ["honeycomb"];
 
 function enterPhobiaInput() {
     "use strict";
@@ -27,6 +27,7 @@ function enterPhobiaInput() {
         var image = "https://www.healthline.com/hlcmsresource/images/Image-Galleries/Trypophobia/1113-Trypophobia-Understanding_Fear_of_Holes-642x361-slide1.jpg";
         document.querySelector("#sourceImage").src = image;
 
+        loadHiddenBlockImage();
         hideAllImages();
         $("img").each(function(){
             processImage(this);
@@ -34,6 +35,14 @@ function enterPhobiaInput() {
 
         
     };
+
+    function loadHiddenBlockImage() {
+        var blockHidden = $("<div></div>")
+            .attr({
+                "style":"background-image: url(imageblock.jpg); display: none"
+            })
+        $("body").append(blockHidden);
+    }
 
     function hideAllImages() {
         $("img").each(function() {
@@ -91,7 +100,7 @@ function enterPhobiaInput() {
 
         
         .done(function(data) {
-            //console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data));
 
             if(matchesFilter(data.description.tags, phobiaList)) {
                 var width = tagOfImage.width;
@@ -116,8 +125,19 @@ function enterPhobiaInput() {
     }
 
     function matchesFilter(tags, phobiaList) {
+        var map = new Map();
+        for(var i = 0; i < phobiaList.length; i++) {
+            map.set(phobiaList[i], false);
+        }
+        for(var i = 0; i < tags.length; i++) {
+            var word = tags[i];
+            if(!map.has(word)) {
+                map.set(word, false);
+            } else {
+                return true;
+            }
+        }
         return false;
-        // INSERT JEFF'S CODE HERE
     }
 
 
