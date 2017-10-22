@@ -82,7 +82,13 @@ function enterPhobiaInput() {
         
         .done(function(data) {
             if(data.categories[0].name = "animal_cat") {
-                $("#sourceImage").attr({"style":"opacity: 0"});
+                var width = $("#sourceImage").width();
+                var height = $("#sourceImage").height();
+                
+                $("#sourceImage").attr({
+                    "src":"imageblock.jpg",
+                    "style":"width: "+width+"px; height: "+height+"px"
+                });
             }
             
         })
