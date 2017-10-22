@@ -6,10 +6,23 @@ body{
     background-image: url(assets/siteherobg.png);
     background-position: center;
     background-size: cover;
-    height: 85vh;
+    height: 88vh;
+    border-bottom: solid 10px magenta;
 }
 .bgimage span{
     font-size: 100px;
     text-align: center;
     
+}
+.downArrow{
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+}
+.about{
+    color: white;
+    font-size: 32px;
+}
+.description{
+    margin-top: 100px;
+    font-size: 24px;
 }

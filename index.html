@@ -9,8 +9,9 @@
 <html lang="en-US">
     <head>
         <title>
-            Phobia Sensor
+            Phobia Censor
         </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="default.css">
     </head>
@@ -18,21 +19,41 @@
     <body>
         <div class="bgimage">
         </div>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <img class="downArrow" src="assets/arrowDown.png">
+                    <img class="downArrow" src="assets/arrowDown.png"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10 ml-auto mr-auto">
+                    <div class="about">
+                        "Nearly 15-20% of us experience specific phobias at least once in our life. In the U.S., nearly 8.7% of people (aged 18 and over) have at least one extreme specific fear."
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8 ml-auto">
+                    <div class="about">
+                        -National Institute of Mental Health
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 ml-auto">
+                    <div class="about description">
+                        <h2>What is Phobia Censor?</h2>
+                        The Phobia Censor is a chrome extension that checks every single image that is displayed on your screen and utilizes Microsoft's Computer Vision API - v1.0 to determine if the image triggers a user's phobia. For example, a person that has an extreme fear of spiders (arachnophobia), would set up a profile listing their fear and Phobia Censor will "censor" every image containing spiders.
+                    </div>
+                </div>
+                <div class="col-5 ml-auto">
+                    <div class="about description">
+                        <h2>How does it work?</h2>
+                        The Phobia Censor parses the HTML document for all image tags and then uses the Microsoft Computer Vision API to determine a list of tags for the images. It then cross checks those tags with the user's list of phobias and blocks out all of the content that may resemble the phobia and thus makes internet browsing safe for all!
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="container">
-           <div class="row">
-                <div class="col-12">
-                </div>
-            </div>
-        </div>
-        
     </body>
     
 </html>
