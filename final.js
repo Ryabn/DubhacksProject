@@ -1,10 +1,12 @@
-var phobiaList = ["table", "lobster", "pair"];
-hideAllImages();
+chrome.storage.local.get(null, function(items){
+    hideAllImages();
+    phobiaList = items;
+    var images = document.getElementsByTagName('img');
+    for (var i = 0; i < images.length; i++) {
+        processImage(images[i], phobiaList);
+    }
+});
 
-var images = document.getElementsByTagName('img');
-for (var i = 0; i < images.length; i++) {
-    processImage(images[i]);
-}
 
 function hideAllImages() {
     $("img").each(function() {
@@ -12,11 +14,11 @@ function hideAllImages() {
     })
 }
 
-function processImage(tagOfImage) {
+function processImage(tagOfImage, phobiaList) {
    
-    // ******************************************
+    // ********************************************
     // * Update or verify the following values. *
-    // ******************************************
+    // ********************************************
 
     // Replace the subscriptionKey string value with your valid subscription key.
     var subscriptionKey = "60a9460bb13a4dcc813f715b9227c115";
@@ -59,7 +61,7 @@ function processImage(tagOfImage) {
 
     
     .done(function(data) {
-        console.log(JSON.stringify(data));
+    	//console.log(JSON.stringify(data));
         var fear = matchesFilter(data.description.tags, phobiaList);
         if (fear != null) {
             var width = tagOfImage.width;
@@ -90,9 +92,9 @@ function processImage(tagOfImage) {
             covered.classList.add(sourceImageUrl);
             
             covered.onclick = function() {
-                this.style.backgroundImage = "url(" + this.className + ")";
-                this.style.border = "";
-                this.innerHTML = "";
+            	this.style.backgroundImage = "url(" + this.className + ")";
+            	this.style.border = "";
+            	this.innerHTML = "";
             };
 
             tagOfImage.parentNode.insertBefore(covered, tagOfImage);
