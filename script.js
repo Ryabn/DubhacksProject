@@ -1,107 +1,68 @@
-var phobiaList = ["honeycomb"];
-
-function enterPhobiaInput() {
-    "use strict";
-    var list = document.getElementById("userPhobiaList");
-    var tempUserPhobia = document.getElementById('userPhobia').value;
-    phobiaList.push(tempUserPhobia);
-    
-    var entry = document.createElement('li');
-    entry.appendChild(document.createTextNode(tempUserPhobia));
-    list.appendChild(entry);
-    document.getElementById("userPhobia").value = "";
+function hideAllImages() {
+    $("img").each(function() {
+        this.style = "opacity:0";
+    })
 }
 
-// Function wrapper
-(function() {
-    // Use strict style (doesn't affect functionality)
-    'use strict';
+    hideAllImages();
 
-    // Set up shortcuts for getting elements of web page
-    var $$$ = function(id) { return document.getElementById(id); };
-    var $$ = function(id) { return document.getElementsByClassName(id); };
 
-    // Window onload function. This code is executed when the HTML page first loads
-    window.onload = function() {
-        var image = "https://static.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg";
-        document.querySelector("#sourceImage").src = image;
+var images = document.getElementsByTagName('img');
+for (var i = 0; i < images.length; i++) {
+	processImage(images[i]);
+}
 
-        loadHiddenBlockImage();
-        hideAllImages();
-        $("img").each(function(){
-            processImage(this);
-        });
 
-        
+function processImage(tagOfImage) {
+   
+    // ********************************************
+    // * Update or verify the following values. *
+    // ********************************************
+
+    // Replace the subscriptionKey string value with your valid subscription key.
+    var subscriptionKey = "60a9460bb13a4dcc813f715b9227c115";
+
+    // Replace or verify the region.
+    //
+    // You must use the same region in your REST API call as you used to obtain your subscription keys.
+    // For example, if you obtained your subscription keys from the westus region, replace
+    // "westcentralus" in the URI below with "westus".
+    //
+    // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
+    // a free trial subscription key, you should not need to change this region.
+    var uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+
+    // Request parameters.
+    var params = {
+        "visualFeatures": "Categories,Description,Color",
+        "details": "",
+        "language": "en",
     };
 
-    function loadHiddenBlockImage() {
-        var blockHidden = $("<div></div>")
-            .attr({
-                "style":"background-image: url(imageblock.jpg); display: none"
-            })
-        $("body").append(blockHidden);
-    }
+    // Display the image.
+    var sourceImageUrl = tagOfImage.src;
 
-    function hideAllImages() {
-        $("img").each(function() {
-            this.style = "opacity:0";
-        })
-    }
+    // Perform the REST API call.
+    $.ajax({
+        url: uriBase + "?" + $.param(params),
 
-    function enterPhobiaInput(){
-        var phobia = document.getElementById('phobia').value;
-    }
+        // Request headers.
+        beforeSend: function(xhrObj){
+            xhrObj.setRequestHeader("Content-Type","application/json");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+        },
 
-    function processImage(tagOfImage) {
-        // **********************************************
-        // *** Update or verify the following values. ***
-        // **********************************************
+        type: "POST",
 
-        // Replace the subscriptionKey string value with your valid subscription key.
-        var subscriptionKey = "60a9460bb13a4dcc813f715b9227c115";
+        // Request body.
+        data: '{"url": ' + '"' + sourceImageUrl + '"}',
+    })
 
-        // Replace or verify the region.
-        //
-        // You must use the same region in your REST API call as you used to obtain your subscription keys.
-        // For example, if you obtained your subscription keys from the westus region, replace
-        // "westcentralus" in the URI below with "westus".
-        //
-        // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
-        // a free trial subscription key, you should not need to change this region.
-        var uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+    
+    .done(function(data) {
+    	console.log(JSON.stringify(data));
 
-        // Request parameters.
-        var params = {
-            "visualFeatures": "Categories,Description,Color",
-            "details": "",
-            "language": "en",
-        };
-
-        // Display the image.
-        var sourceImageUrl = tagOfImage.src;
-
-        // Perform the REST API call.
-        $.ajax({
-            url: uriBase + "?" + $.param(params),
-
-            // Request headers.
-            beforeSend: function(xhrObj){
-                xhrObj.setRequestHeader("Content-Type","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-            },
-
-            type: "POST",
-
-            // Request body.
-            data: '{"url": ' + '"' + sourceImageUrl + '"}',
-        })
-
-        
-        .done(function(data) {
-            console.log(JSON.stringify(data));
-
-            if(matchesFilter(data.description.tags, phobiaList)) {
+            if(data.description.tags.includes("table")) {
                 var width = tagOfImage.width;
                 var height = tagOfImage.height;
                 
@@ -111,35 +72,12 @@ function enterPhobiaInput() {
                 tagOfImage.style = "opacity: 1";
             }
 
-            tagOfImage.classList.add("phobiaBlockerScanned");
-        })
 
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            // Display error message.
-            var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-            errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
-            alert(errorString);
-        });
+    })
 
-    }
+    .fail(function(jqXHR, textStatus, errorThrown) {
+       
+    });
 
-    function matchesFilter(tags, phobiaList) {
-        var map = new Map();
-        for(var i = 0; i < phobiaList.length; i++) {
-            map.set(phobiaList[i], false);
-        }
-        for(var i = 0; i < tags.length; i++) {
-            var word = tags[i];
-            if(!map.has(word)) {
-                map.set(word, false);
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
+}
 
-
-})();
-
- 

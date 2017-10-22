@@ -6,7 +6,7 @@
   "version": "1.0",
   "options_ui": {
     "page": "index.html",
-    "chrome_style": true,
+    "chrome_style": true
   },
 
   "browser_action": {
@@ -14,6 +14,15 @@
     "default_popup": "index.html",
     "default_title": "Block Phobias!"
   },
+  "content_scripts": [{
+    "matches": [
+        "<all_urls>"
+    ],
+    "js": ["jquery.js",
+            "script.js"	
+            ]
+
+  }],
   "permissions": [
     "cookies",
     "activeTab",
