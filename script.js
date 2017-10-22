@@ -11,14 +11,17 @@
     // Window onload function. This code is executed when the HTML page first loads
     window.onload = function() {
         
-        
+
     };
 
     function enterPhobiaInput(){
         var phobia = document.getElementById('phobia').value;
     }
 
-    function processImage() {
+
+})();
+
+ function processImage() {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -75,6 +78,3 @@
             alert(errorString);
         });
     }
-
-})();
-
