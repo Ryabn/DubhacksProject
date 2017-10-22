@@ -18,10 +18,7 @@
         var phobia = document.getElementById('phobia').value;
     }
 
-
-})();
-
- function processImage() {
+    function processImage() {
         // **********************************************
         // *** Update or verify the following values. ***
         // **********************************************
@@ -78,3 +75,8 @@
             alert(errorString);
         });
     }
+
+
+})();
+
+ 
