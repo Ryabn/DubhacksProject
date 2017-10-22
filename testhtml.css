@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+    background-color: black;
+}
+.imageProp{
+    width: 550px;
+    height: 400px;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 10px;
+    
+}
