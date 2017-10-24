@@ -1,6 +1,7 @@
 body{
     margin: 0;
     background-color: black;
+    color:white;
 }
 .bgimage{
     background-image: url(assets/siteherobg.png);
@@ -12,7 +13,6 @@ body{
 .bgimage span{
     font-size: 100px;
     text-align: center;
-    
 }
 .quote{
     font-family: 'Roboto Slab', serif; 
@@ -22,7 +22,6 @@ body{
     transform: translate(-50%, 0);
 }
 .about{
-    color: white;
     font-size: 32px;
 }
 .description{
@@ -30,6 +29,8 @@ body{
     font-size: 24px;
 }
 .description h1{
+    text-align: center;
+    font-size: 30px;
     font-family: 'Roboto Slab', serif;
 }
 .borderl{
@@ -37,14 +38,23 @@ body{
     padding-left: 20px;
     border-left: solid 5px orange;
 }
+.teamDescriptions{
+    margin-top: 100px;
+    text-align: center;
+}
+.names{
+
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+
+}
 .github{
     margin-top: 100px;
     text-align: center;
     font-size: 24px;
     color: lightgray;
-    
-}
-.names{
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: purple;
 }
