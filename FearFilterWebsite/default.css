@@ -49,12 +49,19 @@ body{
     margin-top: 20px;
 
 }
+.nameImage{
+    height: 160px;
+    width: 160px;
+    border-radius: 80px;
+    overflow:hidden;
+}
 .github{
+    border-top: 10px solid #380099;
     margin-top: 100px;
     text-align: center;
     font-size: 24px;
     color: lightgray;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: purple;
+    background-color: #4c14ad;
 }
