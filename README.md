@@ -1,5 +1,7 @@
 # DubhacksProject
 
+***NOTE: EXTENSION NO LONGER WORKS. API KEY IS OUTDATED AND WILL NOT WORK UNLESS YOU RENEW AN API KEY FROM MICROSOFT'S COMPUTER VISION API PAGE***
+
 Read more about the project on the website:<br>
 http://www.phobiacensor.tech/
 <br>
